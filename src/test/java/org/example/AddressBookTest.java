@@ -563,4 +563,51 @@ class AddressBookTest {
         assertEquals(2L, stateCount.get("Telangana"));
         assertEquals(1L, stateCount.get("Karnataka"));
     }
+    //UC11 sortContactsByName
+    @Test
+    void shouldSortContactsAlphabeticallyByName() {
+
+        // Create AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        // Add contacts in random order
+        addressBook.addContact(new Contact(
+                "Rahul", "K",
+                "", "Bangalore",
+                "Karnataka",
+                "", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Anil", "R",
+                "", "Mysore",
+                "Karnataka",
+                "", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Prashanth", "S",
+                "", "Hyderabad",
+                "Telangana",
+                "", "", ""));
+
+        // Sort contacts
+        List<Contact> sortedContacts = addressBook.sortContactsByName();
+
+        // Verify sorted order
+        assertEquals("Anil", sortedContacts.get(0).getFirstName());
+        assertEquals("Prashanth", sortedContacts.get(1).getFirstName());
+        assertEquals("Rahul", sortedContacts.get(2).getFirstName());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoContactsExist() {
+
+        // Create empty AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        // Sort empty AddressBook
+        List<Contact> sortedContacts = addressBook.sortContactsByName();
+
+        // Verify result
+        assertTrue(sortedContacts.isEmpty());
+    }
 }

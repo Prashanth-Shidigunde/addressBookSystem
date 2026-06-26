@@ -1,7 +1,9 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddressBook {
 
@@ -73,6 +75,21 @@ public class AddressBook {
     }
     public List<Contact> getContacts(){
         return contacts;
+    }
+    //UC11 ability to sort al[habetically
+    /**
+     * Returns all contacts sorted alphabetically
+     * by first name.
+     *
+     * @return Sorted list of contacts.
+     */
+    public List<Contact> sortContactsByName() {
+
+        // Sort contacts using Java Streams
+        return contacts.stream()
+                .sorted(Comparator.comparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .collect(Collectors.toList());
     }
 
     public void displayContacts() {
