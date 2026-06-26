@@ -95,6 +95,30 @@ public class AddressBookSystem {
 
         return stateDictionary.getOrDefault(state, new ArrayList<>());
     }
+    //UC10 count Contacts by city and state
+
+    public Map<String, Long> getContactCountByCity() {
+
+        // Count contacts by city using Java Streams
+        return addressBooks.values()
+                .stream()
+                .flatMap(addressBook ->
+                        addressBook.getContacts().stream())
+                .collect(Collectors.groupingBy(
+                        Contact::getCity,
+                        Collectors.counting()));
+    }
+    public Map<String, Long> getContactCountByState() {
+
+        // Count contacts by state using Java Streams
+        return addressBooks.values()
+                .stream()
+                .flatMap(addressBook ->
+                        addressBook.getContacts().stream())
+                .collect(Collectors.groupingBy(
+                        Contact::getState,
+                        Collectors.counting()));
+    }
 
     /**
      * Returns all Address Books.

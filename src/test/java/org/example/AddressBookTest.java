@@ -469,4 +469,98 @@ class AddressBookTest {
         // Verify
         assertEquals(2, persons.size());
     }
+    //UC10 Count Contact by city and state
+    @Test
+    void shouldCountContactsByCity() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        // Create AddressBook
+        AddressBook family = new AddressBook();
+
+        // Add contacts
+        family.addContact(new Contact(
+                "Prashanth", "S",
+                "MG Road",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9876543210",
+                "prashanth@gmail.com"));
+
+        family.addContact(new Contact(
+                "Rahul", "K",
+                "JP Nagar",
+                "Bangalore",
+                "Karnataka",
+                "560078",
+                "9999999999",
+                "rahul@gmail.com"));
+
+        family.addContact(new Contact(
+                "Kiran", "R",
+                "Main Road",
+                "Mysore",
+                "Karnataka",
+                "570001",
+                "8888888888",
+                "kiran@gmail.com"));
+
+        system.addAddressBook("Family", family);
+
+        // Get count by city
+        Map<String, Long> cityCount = system.getContactCountByCity();
+
+        // Verify counts
+        assertEquals(2L, cityCount.get("Bangalore"));
+        assertEquals(1L, cityCount.get("Mysore"));
+    }
+    @Test
+    void shouldCountContactsByState() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        // Create AddressBooks
+        AddressBook office = new AddressBook();
+        AddressBook friends = new AddressBook();
+
+        office.addContact(new Contact(
+                "Anil", "K",
+                "Street",
+                "Hyderabad",
+                "Telangana",
+                "500001",
+                "7777777777",
+                "anil@gmail.com"));
+
+        friends.addContact(new Contact(
+                "Ravi", "M",
+                "Street",
+                "Warangal",
+                "Telangana",
+                "500002",
+                "6666666666",
+                "ravi@gmail.com"));
+
+        friends.addContact(new Contact(
+                "Suresh", "P",
+                "Street",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9999999999",
+                "suresh@gmail.com"));
+
+        system.addAddressBook("Office", office);
+        system.addAddressBook("Friends", friends);
+
+        // Get count by state
+        Map<String, Long> stateCount = system.getContactCountByState();
+
+        // Verify counts
+        assertEquals(2L, stateCount.get("Telangana"));
+        assertEquals(1L, stateCount.get("Karnataka"));
+    }
 }
