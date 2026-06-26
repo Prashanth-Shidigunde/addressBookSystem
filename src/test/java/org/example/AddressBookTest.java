@@ -392,4 +392,81 @@ class AddressBookTest {
         // Verify result
         assertEquals(2, contacts.size());
     }
+    @Test
+    void shouldViewPersonsByCity() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        // Create AddressBook
+        AddressBook family = new AddressBook();
+
+        // Add contacts
+        family.addContact(new Contact(
+                "Prashanth", "S",
+                "MG Road",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9876543210",
+                "prashanth@gmail.com"));
+
+        family.addContact(new Contact(
+                "Rahul", "K",
+                "JP Nagar",
+                "Bangalore",
+                "Karnataka",
+                "560078",
+                "9999999999",
+                "rahul@gmail.com"));
+
+        system.addAddressBook("Family", family);
+
+        // Build dictionaries
+        system.buildDictionaries();
+
+        // View persons by city
+        List<Contact> persons = system.viewPersonsByCity("Bangalore");
+
+        // Verify
+        assertEquals(2, persons.size());
+    }
+    //UC9
+    @Test
+    void shouldViewPersonsByState() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        AddressBook office = new AddressBook();
+
+        office.addContact(new Contact(
+                "Anil", "K",
+                "Street",
+                "Hyderabad",
+                "Telangana",
+                "500001",
+                "7777777777",
+                "anil@gmail.com"));
+
+        office.addContact(new Contact(
+                "Ravi", "M",
+                "Street",
+                "Warangal",
+                "Telangana",
+                "500002",
+                "6666666666",
+                "ravi@gmail.com"));
+
+        system.addAddressBook("Office", office);
+
+        // Build dictionaries
+        system.buildDictionaries();
+
+        // View persons by state
+        List<Contact> persons = system.viewPersonsByState("Telangana");
+
+        // Verify
+        assertEquals(2, persons.size());
+    }
 }
