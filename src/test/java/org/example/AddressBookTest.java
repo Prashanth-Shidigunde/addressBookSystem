@@ -111,7 +111,7 @@ class AddressBookTest {
 
         // Remaining contact should be Rahul
         assertEquals("Rahul",
-                addressBook.getContacts().get(0).getFirstName());
+                addressBook.getContacts().getFirst().getFirstName());
     }
     @Test
     void shouldReturnFalseWhenDeletingNonExistingContact() {
@@ -127,6 +127,69 @@ class AddressBookTest {
 
         // AddressBook should still be empty
         assertEquals(0, addressBook.getContacts().size());
+    }
+    //UC5 add multiple contacts
+    @Test
+    void shouldAddMultipleContacts() {
+
+        // Create AddressBook object
+        AddressBook addressBook = new AddressBook();
+
+        // Create first contact
+        Contact contact1 = new Contact(
+                "Prashanth",
+                "S",
+                "MG Road",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9876543210",
+                "prashanth@gmail.com"
+        );
+
+        // Create second contact
+        Contact contact2 = new Contact(
+                "Rahul",
+                "K",
+                "JP Nagar",
+                "Mysore",
+                "Karnataka",
+                "570001",
+                "9123456789",
+                "rahul@gmail.com"
+        );
+
+        // Create third contact
+        Contact contact3 = new Contact(
+                "Kiran",
+                "R",
+                "BTM Layout",
+                "Bangalore",
+                "Karnataka",
+                "560076",
+                "9988776655",
+                "kiran@gmail.com"
+        );
+
+        // Add all contacts to AddressBook
+        addressBook.addContact(contact1);
+        addressBook.addContact(contact2);
+        addressBook.addContact(contact3);
+
+        // Verify total number of contacts
+        assertEquals(3, addressBook.getContacts().size());
+
+        // Verify first contact
+        assertEquals("Prashanth",
+                addressBook.getContacts().get(0).getFirstName());
+
+        // Verify second contact
+        assertEquals("Rahul",
+                addressBook.getContacts().get(1).getFirstName());
+
+        // Verify third contact
+        assertEquals("Kiran",
+                addressBook.getContacts().get(2).getFirstName());
     }
 
 }
