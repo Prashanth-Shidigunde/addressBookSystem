@@ -111,7 +111,7 @@ class AddressBookTest {
 
         // Remaining contact should be Rahul
         assertEquals("Rahul",
-                addressBook.getContacts().get(0).getFirstName());
+                addressBook.getContacts().getFirst().getFirstName());
     }
     @Test
     void shouldReturnFalseWhenDeletingNonExistingContact() {
