@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class Contact {
     String firstName;
     String lastName;
@@ -97,6 +99,36 @@ public class Contact {
         System.out.println("Email      : " + email);
     }
 
+    @Override
+    public boolean equals(Object object) {
+
+        // Check whether both references are same
+        if (this == object) {
+            return true;
+        }
+
+        // Check object type
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        Contact contact = (Contact) object;
+
+        // Compare first name and last name
+        return firstName.equalsIgnoreCase(contact.firstName)
+                && lastName.equalsIgnoreCase(contact.lastName);
+    }
+    /**
+     * Overrides hashCode() whenever equals()
+     * is overridden.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                firstName.toLowerCase(),
+                lastName.toLowerCase()
+        );
+    }
     @Override
     public String toString() {
         return firstName+" "+lastName+" "+address+" "+city+" "+state+" "+zip+" "+phoneNumber+" "+email;

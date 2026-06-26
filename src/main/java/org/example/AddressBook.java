@@ -7,8 +7,22 @@ public class AddressBook {
 
     ArrayList<Contact> contacts = new ArrayList<>();
 
-    public void addContact(Contact contact) {
+    public boolean addContact(Contact contact) {
+
+        // Check duplicate using Java Stream
+        boolean duplicateFound = contacts.stream()
+                .anyMatch(existingContact ->
+                        existingContact.equals(contact));
+
+        // Duplicate exists
+        if (duplicateFound) {
+            return false;
+        }
+
+        // Add contact
         contacts.add(contact);
+
+        return true;
     }
     //***********UC2 edit data
     public boolean editContact(String firstName, Contact updatedContact) {

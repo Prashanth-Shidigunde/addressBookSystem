@@ -232,4 +232,79 @@ class AddressBookTest {
         // Verify only one AddressBook exists
         assertEquals(1, system.getAddressBooks().size());
     }
+    @Test
+    void shouldNotAllowDuplicateContact() {
+
+        // Create AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        // Create first contact
+        Contact contact1 = new Contact(
+                "Prashanth",
+                "S",
+                "MG Road",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9876543210",
+                "prashanth@gmail.com"
+        );
+
+        // Duplicate contact
+        Contact contact2 = new Contact(
+                "Prashanth",
+                "S",
+                "JP Nagar",
+                "Mysore",
+                "Karnataka",
+                "570001",
+                "9999999999",
+                "new@gmail.com"
+        );
+
+        // Add first contact
+        assertTrue(addressBook.addContact(contact1));
+
+        // Duplicate should not be added
+        assertFalse(addressBook.addContact(contact2));
+
+        // Only one contact should exist
+        assertEquals(1, addressBook.getContacts().size());
+    }
+
+    @Test
+    void shouldAllowDifferentContacts() {
+
+        // Create AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        Contact contact1 = new Contact(
+                "Prashanth",
+                "S",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        );
+
+        Contact contact2 = new Contact(
+                "Rahul",
+                "K",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+        );
+
+        // Both contacts should be added
+        assertTrue(addressBook.addContact(contact1));
+        assertTrue(addressBook.addContact(contact2));
+
+        // Verify both contacts exist
+        assertEquals(2, addressBook.getContacts().size());
+    }
 }
