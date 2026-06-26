@@ -1,7 +1,10 @@
 package org.example;
 
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddressBookSystem {
     //UC6 add mutiple address Book to the System
@@ -28,6 +31,29 @@ public class AddressBookSystem {
         addressBooks.put(addressBookName, addressBook);
 
         return true;
+    }
+    //UC8 search person in city or state across multiple address Book
+    public List<Contact> searchByCity(String city) {
+
+        // Search contacts using Java Streams
+        return addressBooks.values()
+                .stream()
+                .flatMap(addressBook ->
+                        addressBook.getContacts().stream())
+                .filter(contact ->
+                        contact.getCity().equalsIgnoreCase(city))
+                .collect(Collectors.toList());
+    }
+    public List<Contact> searchByState(String state) {
+
+        // Search contacts using Java Streams
+        return addressBooks.values()
+                .stream()
+                .flatMap(addressBook ->
+                        addressBook.getContacts().stream())
+                .filter(contact ->
+                        contact.getState().equalsIgnoreCase(state))
+                .collect(Collectors.toList());
     }
 
     /**

@@ -1,6 +1,7 @@
 package org.example;
 
 import org.junit.jupiter.api.Test;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -306,5 +307,89 @@ class AddressBookTest {
 
         // Verify both contacts exist
         assertEquals(2, addressBook.getContacts().size());
+    }
+    //UC8 search person by city or state
+    @Test
+    void shouldSearchContactsByCity() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        // Create AddressBooks
+        AddressBook family = new AddressBook();
+        AddressBook friends = new AddressBook();
+
+        // Add contacts
+        family.addContact(new Contact(
+                "Prashanth", "S",
+                "MG Road",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9876543210",
+                "prashanth@gmail.com"));
+
+        friends.addContact(new Contact(
+                "Rahul", "K",
+                "JP Nagar",
+                "Bangalore",
+                "Karnataka",
+                "560078",
+                "9999999999",
+                "rahul@gmail.com"));
+
+        friends.addContact(new Contact(
+                "Kiran", "R",
+                "Main Road",
+                "Mysore",
+                "Karnataka",
+                "570001",
+                "8888888888",
+                "kiran@gmail.com"));
+
+        // Add AddressBooks to system
+        system.addAddressBook("Family", family);
+        system.addAddressBook("Friends", friends);
+
+        // Search by city
+        List<Contact> contacts = system.searchByCity("Bangalore");
+
+        // Verify result
+        assertEquals(2, contacts.size());
+    }
+
+    @Test
+    void shouldSearchContactsByState() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        AddressBook office = new AddressBook();
+
+        office.addContact(new Contact(
+                "Anil", "K",
+                "Street",
+                "Hyderabad",
+                "Telangana",
+                "500001",
+                "7777777777",
+                "anil@gmail.com"));
+
+        office.addContact(new Contact(
+                "Ravi", "M",
+                "Street",
+                "Warangal",
+                "Telangana",
+                "500002",
+                "6666666666",
+                "ravi@gmail.com"));
+
+        system.addAddressBook("Office", office);
+
+        // Search by state
+        List<Contact> contacts = system.searchByState("Telangana");
+
+        // Verify result
+        assertEquals(2, contacts.size());
     }
 }
