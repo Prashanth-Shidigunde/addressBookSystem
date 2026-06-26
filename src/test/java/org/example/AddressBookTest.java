@@ -66,5 +66,67 @@ class AddressBookTest {
         assertEquals("New Address", addressBook.getContacts().getFirst().getAddress());
         assertEquals("Mysore", addressBook.getContacts().getFirst().getCity());
     }
+    //UC4 delete contact
+    @Test
+    void shouldDeleteExistingContact() {
+
+        // Create AddressBook object
+        AddressBook addressBook = new AddressBook();
+
+        // Create contacts
+        Contact contact1 = new Contact(
+                "Prashanth",
+                "S",
+                "Address1",
+                "Bangalore",
+                "Karnataka",
+                "560001",
+                "9876543210",
+                "prashanth@gmail.com"
+        );
+
+        Contact contact2 = new Contact(
+                "Rahul",
+                "K",
+                "Address2",
+                "Mysore",
+                "Karnataka",
+                "570001",
+                "9999999999",
+                "rahul@gmail.com"
+        );
+
+        // Add contacts to AddressBook
+        addressBook.addContact(contact1);
+        addressBook.addContact(contact2);
+
+        // Delete first contact
+        boolean result = addressBook.deleteContact("Prashanth");
+
+        // Verify contact is deleted
+        assertTrue(result);
+
+        // Only one contact should remain
+        assertEquals(1, addressBook.getContacts().size());
+
+        // Remaining contact should be Rahul
+        assertEquals("Rahul",
+                addressBook.getContacts().get(0).getFirstName());
+    }
+    @Test
+    void shouldReturnFalseWhenDeletingNonExistingContact() {
+
+        // Create AddressBook object
+        AddressBook addressBook = new AddressBook();
+
+        // Try deleting a contact that doesn't exist
+        boolean result = addressBook.deleteContact("Unknown");
+
+        // Verify deletion fails
+        assertFalse(result);
+
+        // AddressBook should still be empty
+        assertEquals(0, addressBook.getContacts().size());
+    }
 
 }

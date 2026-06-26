@@ -10,7 +10,7 @@ public class AddressBook {
     public void addContact(Contact contact) {
         contacts.add(contact);
     }
-    //UC2 edit data
+    //***********UC2 edit data
     public boolean editContact(String firstName, Contact updatedContact) {
 
         // Traverse through all contacts
@@ -23,6 +23,33 @@ public class AddressBook {
 
                 // Replace old contact with updated contact
                 contacts.set(i, updatedContact);
+                return true;
+            }
+        }
+
+        // Contact not found
+        return false;
+    }
+    /**
+     * Deletes a contact from the Address Book using the first name.
+     *
+     * @param firstName Name of the contact to be deleted.
+     * @return true if the contact is deleted successfully,
+     *         false if the contact is not found.
+     */
+    public boolean deleteContact(String firstName) {
+
+        // Traverse through all contacts
+        for (int i = 0; i < contacts.size(); i++) {
+
+            Contact contact = contacts.get(i);
+
+            // Check whether the contact exists
+            if (contact.getFirstName().equalsIgnoreCase(firstName)) {
+
+                // Remove the contact from the list
+                contacts.remove(i);
+
                 return true;
             }
         }
