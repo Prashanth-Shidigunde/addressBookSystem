@@ -24,8 +24,8 @@ class AddressBookTest {
         addressBook.addContact(contact);
 
         assertEquals(1, addressBook.contacts.size());
-        assertEquals("Prashanth", addressBook.contacts.get(0).firstName);
-        assertEquals("S", addressBook.contacts.get(0).lastName);
+        assertEquals("Prashanth", addressBook.contacts.getFirst().firstName);
+        assertEquals("S", addressBook.contacts.getFirst().lastName);
     }
 
 }
