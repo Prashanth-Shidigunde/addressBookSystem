@@ -91,6 +91,31 @@ public class AddressBook {
                         .thenComparing(Contact::getLastName))
                 .collect(Collectors.toList());
     }
+    //UC12 sort the entries by city, state, Zip
+    public List<Contact> sortContactsByCity() {
+
+        // Sort contacts by city using Java Streams
+        return contacts.stream()
+                .sorted(Comparator.comparing(Contact::getCity)
+                        .thenComparing(Contact::getFirstName))
+                .collect(Collectors.toList());
+    }
+    public List<Contact> sortContactsByState() {
+
+        // Sort contacts by state using Java Streams
+        return contacts.stream()
+                .sorted(Comparator.comparing(Contact::getState)
+                        .thenComparing(Contact::getFirstName))
+                .collect(Collectors.toList());
+    }
+    public List<Contact> sortContactsByZip() {
+
+        // Sort contacts by zip code using Java Streams
+        return contacts.stream()
+                .sorted(Comparator.comparing(Contact::getZip)
+                        .thenComparing(Contact::getFirstName))
+                .collect(Collectors.toList());
+    }
 
     public void displayContacts() {
         for (Contact contact : contacts) {
