@@ -610,4 +610,97 @@ class AddressBookTest {
         // Verify result
         assertTrue(sortedContacts.isEmpty());
     }
+    //UC12 sorted by city,state and zip
+    @Test
+    void shouldSortContactsByCity() {
+
+        // Create AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        // Add contacts
+        addressBook.addContact(new Contact(
+                "Rahul", "K",
+                "", "Mysore",
+                "Karnataka",
+                "570001", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Anil", "R",
+                "", "Bangalore",
+                "Karnataka",
+                "560001", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Prashanth", "S",
+                "", "Hyderabad",
+                "Telangana",
+                "500001", "", ""));
+
+        // Sort by city
+        List<Contact> sortedContacts = addressBook.sortContactsByCity();
+
+        // Verify sorted order
+        assertEquals("Bangalore", sortedContacts.get(0).getCity());
+        assertEquals("Hyderabad", sortedContacts.get(1).getCity());
+        assertEquals("Mysore", sortedContacts.get(2).getCity());
+    }
+
+    @Test
+    void shouldSortContactsByState() {
+
+        // Create AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        addressBook.addContact(new Contact(
+                "Rahul", "K",
+                "", "Mysore",
+                "Karnataka",
+                "570001", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Prashanth", "S",
+                "", "Hyderabad",
+                "Telangana",
+                "500001", "", ""));
+
+        // Sort by state
+        List<Contact> sortedContacts = addressBook.sortContactsByState();
+
+        // Verify sorted order
+        assertEquals("Karnataka", sortedContacts.get(0).getState());
+        assertEquals("Telangana", sortedContacts.get(1).getState());
+    }
+
+    @Test
+    void shouldSortContactsByZip() {
+
+        // Create AddressBook
+        AddressBook addressBook = new AddressBook();
+
+        addressBook.addContact(new Contact(
+                "Rahul", "K",
+                "", "Mysore",
+                "Karnataka",
+                "570001", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Anil", "R",
+                "", "Bangalore",
+                "Karnataka",
+                "560001", "", ""));
+
+        addressBook.addContact(new Contact(
+                "Prashanth", "S",
+                "", "Hyderabad",
+                "Telangana",
+                "500001", "", ""));
+
+        // Sort by zip
+        List<Contact> sortedContacts = addressBook.sortContactsByZip();
+
+        // Verify sorted order
+        assertEquals("500001", sortedContacts.get(0).getZip());
+        assertEquals("560001", sortedContacts.get(1).getZip());
+        assertEquals("570001", sortedContacts.get(2).getZip());
+    }
 }
