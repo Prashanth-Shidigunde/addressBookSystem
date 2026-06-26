@@ -191,5 +191,45 @@ class AddressBookTest {
         assertEquals("Kiran",
                 addressBook.getContacts().get(2).getFirstName());
     }
+    //UC6 AddressBookSystemBook
+    @Test
+    void shouldAddMultipleAddressBooks() {
 
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        // Create AddressBooks
+        AddressBook family = new AddressBook();
+        AddressBook friends = new AddressBook();
+        AddressBook office = new AddressBook();
+
+        // Add AddressBooks
+        assertTrue(system.addAddressBook("Family", family));
+        assertTrue(system.addAddressBook("Friends", friends));
+        assertTrue(system.addAddressBook("Office", office));
+
+        // Verify total AddressBooks
+        assertEquals(3, system.getAddressBooks().size());
+
+        // Verify AddressBook exists
+        assertTrue(system.getAddressBooks().containsKey("Family"));
+        assertTrue(system.getAddressBooks().containsKey("Friends"));
+        assertTrue(system.getAddressBooks().containsKey("Office"));
+    }
+
+    @Test
+    void shouldNotAllowDuplicateAddressBookName() {
+
+        // Create AddressBookSystem
+        AddressBookSystem system = new AddressBookSystem();
+
+        // Add first AddressBook
+        assertTrue(system.addAddressBook("Family", new AddressBook()));
+
+        // Try adding duplicate AddressBook
+        assertFalse(system.addAddressBook("Family", new AddressBook()));
+
+        // Verify only one AddressBook exists
+        assertEquals(1, system.getAddressBooks().size());
+    }
 }
